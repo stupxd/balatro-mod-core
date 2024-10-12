@@ -6,15 +6,15 @@ priority = 11
 
 [[patches]]
 [patches.module]
-source = "internal/init.lua"
-before = "main.lua"
-name = "your-mod-name.init"
-
-[[patches]]
-[patches.module]
 source = "libs/nativefs.lua"
 before = "main.lua"
 name = "your-mod-name.nfs"
+
+[[patches]]
+[patches.module]
+source = "internal/init.lua"
+before = "main.lua"
+name = "your-mod-name.init"
 
 # Add core functionality
 [[patches]]
