@@ -24,3 +24,15 @@ position = "append"
 sources = [
     "your-mod-name.lua",
 ]
+
+## Uncomment if you need localization
+## # Localization
+## [[patches]]
+## [patches.pattern]
+## target = "game.lua"
+## pattern = "boot_timer('prep stage', 'splash prep',1)"
+## position = "before"
+## payload = '''
+## YourModName.load_mod_file('internal/localization.lua', 'internal.localization')
+## '''
+## match_indent = true
