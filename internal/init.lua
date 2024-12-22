@@ -30,7 +30,7 @@ end
 YourModName.path = YourModName.find_self('your-mod-name.lua')
 assert(YourModName.path, "Failed to find mod folder. Make sure that `YourModName` folder has `your-mod-name.lua` file!")
 
-YourModName.load_mod_file = function (path, name)
+YourModName.load_mod_file = function (path, name, as_txt)
     name = name or path
 
     local file, err = YourModName.nfs.read(YourModName.path..'/'..path)
@@ -38,7 +38,7 @@ YourModName.load_mod_file = function (path, name)
     assert(file, string.format([=[[YourModName] Failed to load mod file %s (%s).:
 %s]=], path, name, tostring(err)))
 
-    return load(file, string.format(" YourModName - %s ", name))()
+    return as_txt and file or load(file, string.format(" YourModName - %s ", name))()
 end
 
 YourModName.log = function (msg)
