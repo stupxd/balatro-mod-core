@@ -49,5 +49,38 @@ YourModName.log = function (msg)
     end
 end
 
+YourModName.dump = function (o, level, prefix)
+    level = level or 1
+    prefix = prefix or '  '
+    if type(o) == 'table' and level <= 5 then
+        local s = '{ \n'
+        for k, v in pairs(o) do
+            local format
+            if type(k) == 'number' then
+                format = '%s[%d] = %s,\n'
+            else
+                format = '%s["%s"] = %s,\n'
+            end
+            s = s .. string.format(
+                    format,
+                    prefix,
+                    k,
+                    -- Compact parent & draw_major to avoid recursion and huge dumps.
+                    (k == 'parent' or k == 'draw_major') and string.format("'%s'", tostring(v)) or YourModName.dump(v, level + 1, prefix..'  ')
+            )
+        end
+        return s..prefix:sub(3)..'}'
+    else
+        if type(o) == "string" then
+            return string.format('"%s"', o)
+        end
+
+        if type(o) == "function" or type(o) == "table" then
+            return string.format("'%s'", tostring(o))
+        end
+
+        return tostring(o)
+    end
+end
 
 return YourModName
